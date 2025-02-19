@@ -8,6 +8,7 @@ import com.example.zh_matuale.screens.HomeScreen
 import com.example.zh_matuale.screens.LogScreen
 import com.example.zh_matuale.screens.OnboardScreen
 import com.example.zh_matuale.screens.SplashScreen
+import com.example.zh_matuale.screens.PopularScreen
 
 
 sealed class NavRoute (val route: String) {
@@ -29,5 +30,6 @@ fun AppNavHost() {
         composable(NavRoute.Home.route){ HomeScreen(navController)}
         composable(NavRoute.Splash.route){ SplashScreen(navController) }
         composable(NavRoute.Onboard.route){ OnboardScreen(navController, onFinish = {navController.navigate(NavRoute.Home.route)}) }
+       composable(NavRoute.Popular.route){ PopularScreen(navController) }
     }
 }

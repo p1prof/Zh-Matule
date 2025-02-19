@@ -260,7 +260,7 @@ data class OnboardingPage(
     val imageRes: Int
 )
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun PrevOnboardScreen() {
     ZhMatualeTheme {
