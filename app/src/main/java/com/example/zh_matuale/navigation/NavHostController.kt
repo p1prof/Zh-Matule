@@ -6,6 +6,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.zh_matuale.screens.HomeScreen
 import com.example.zh_matuale.screens.LogScreen
+import com.example.zh_matuale.screens.OnboardScreen
+import com.example.zh_matuale.screens.SplashScreen
 
 
 sealed class NavRoute (val route: String) {
@@ -25,5 +27,7 @@ fun AppNavHost() {
    NavHost(navController, startDestination = NavRoute.Log.route) {
         composable(NavRoute.Log.route){ LogScreen(navController)}
         composable(NavRoute.Home.route){ HomeScreen(navController)}
+        composable(NavRoute.Splash.route){ SplashScreen(navController) }
+        composable(NavRoute.Onboard.route){ OnboardScreen(navController, onFinish = {navController.navigate(NavRoute.Home.route)}) }
     }
 }

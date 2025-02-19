@@ -159,7 +159,7 @@ fun LogScreen(navController: NavHostController) {
                     Button(
                         onClick = {
                             if (isEmailValid && isPasswordValid && email.isNotEmpty() && password.isNotEmpty()) {
-                                navController.navigate(NavRoute.Home.route)
+                                navController.navigate(NavRoute.Splash.route)
                             } else {
                                 isEmailValid = isValidEmail(email)
                                 isPasswordValid = password.isNotEmpty()
