@@ -25,10 +25,5 @@ fun AppNavHost() {
    NavHost(navController, startDestination = NavRoute.Log.route) {
         composable(NavRoute.Log.route){ LogScreen(navController)}
         composable(NavRoute.Home.route){ HomeScreen(navController)}
-//        composable(NavRoute.Popular.route){ PopularScreen(navController)}
-//        composable(NavRoute.Favorite.route){ FavoriteScreen(navController)}
-//        composable(NavRoute.Shopkart.route){ ShopkartScreen(navController) }
-//        composable(NavRoute.Splash.route){ SplashScreen(navController)}
-//        composable(NavRoute.Onboard.route){ OnboardScreen( navController, onFinish = { navController.navigate(NavRoute.Home.route) } ) }
     }
 }
