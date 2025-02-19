@@ -1,6 +1,8 @@
 package com.example.zh_matuale.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -221,7 +223,7 @@ fun PasswordTextField(password: String, onPasswordChange: (String) -> Unit) {
             trailingIcon = {
                 IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
                     Icon(
-                        imageVector = if (isPasswordVisible) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
+                        imageVector = if (isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                         contentDescription = if (isPasswordVisible) "Скрыть пароль" else "Показать пароль",
                         modifier = Modifier.size(24.dp)
                     )
