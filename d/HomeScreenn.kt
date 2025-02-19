@@ -1,4 +1,4 @@
-package com.example.zh_matuale.screens
+package ru.jpscissor.sprinttask.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,10 +46,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.zh_matuale.navigation.NavRoute
-import com.example.zh_matuale.ui.theme.ZhMatualeTheme
-import com.example.zhdapp.R
-
+import ru.jpscissor.sprinttask.R
+import ru.jpscissor.sprinttask.navigation.NavRoute
+import ru.jpscissor.sprinttask.ui.theme.SprintTaskTheme
 
 @Composable
 fun HomeScreen(navHostController: NavHostController) {
@@ -61,8 +60,7 @@ fun HomeScreen(navHostController: NavHostController) {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.85f)
+                .fillMaxWidth().fillMaxHeight(0.85f)
                 .background(Color(0xFFF7F7F9))
         ) {
 
@@ -101,7 +99,7 @@ fun TopBar(navController: NavHostController) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = { /* TODO: Открыть меню */ }) {
-            Image(painter = painterResource(R.drawable.hamburger), contentDescription = "")
+            Icon(Icons.Default.Menu, contentDescription = "Меню")
         }
         Text(
             text = "Главная",
@@ -128,9 +126,7 @@ fun SearchBar() {
 
     Row(
 
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 16.dp),
+        modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
         horizontalArrangement = Arrangement.Center
 
     ) {
@@ -197,18 +193,13 @@ fun CategoriesRow(navController: NavHostController) {
     )
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalArrangement =  Arrangement.SpaceEvenly
     ) {
         listOf("Все", "Outdoor", "Tennis").forEach { category ->
             Button(
                 onClick = {  },
-                modifier = Modifier
-                    .padding(vertical = 0.dp)
-                    .width(100.dp)
-                    .height(46.dp)
+                modifier = Modifier.padding(vertical = 0.dp).width(100.dp).height(46.dp)
                     .shadow(0.dp, RoundedCornerShape(14.dp))
                     .background(Color.White, RoundedCornerShape(14.dp)),
                 shape = RoundedCornerShape(14.dp),
@@ -249,8 +240,7 @@ fun SectionTitle(title: String, navController: NavHostController) {
             color = Color(0xFF48B2E7),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            modifier = Modifier
-                .clickable { navController.navigate(NavRoute.Popular.route) }
+            modifier = Modifier.clickable { navController.navigate(NavRoute.Popular.route) }
                 .padding(horizontal = 16.dp)
         )
     }
@@ -323,7 +313,7 @@ fun CardItems() {
                     contentAlignment = Alignment.TopCenter
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.nike),
+                        painter = painterResource(R.drawable.sneaker1),
                         contentDescription = "Sneaker",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -364,7 +354,7 @@ fun CardItems() {
             ) {
                 Image(
                     painter =
-                    if(cartstate % 2 ==0) painterResource(R.drawable.cart_ic2)
+                    if(cartstate % 2 ==0) painterResource(R.drawable.cart)
                     else painterResource(R.drawable.plus),
                     contentDescription = "Plus Icon",
                     modifier = Modifier.fillMaxSize()
@@ -427,7 +417,7 @@ fun CardItems2() {
                     contentAlignment = Alignment.TopCenter
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.nike),
+                        painter = painterResource(R.drawable.sneaker1),
                         contentDescription = "Sneaker",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -468,7 +458,7 @@ fun CardItems2() {
             ) {
                 Image(
                     painter =
-                    if(cartstate % 2 ==0) painterResource(R.drawable.cart_ic)
+                    if(cartstate % 2 ==0) painterResource(R.drawable.cart)
                     else painterResource(R.drawable.plus),
                     contentDescription = "Plus Icon",
                     modifier = Modifier.fillMaxSize()
@@ -494,9 +484,7 @@ fun PromotionsSection() {
         Image(
             painter = painterResource(R.drawable.sales),
             contentDescription = "",
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFFF7F7F9))
+            modifier = Modifier.fillMaxSize().background(Color(0xFFF7F7F9))
         )
 
     }
@@ -520,7 +508,7 @@ fun CustomBottomBar(navController: NavHostController) {
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(R.drawable.bottom_bar),
+                painter = painterResource(R.drawable.bottombar),
                 contentDescription = "",
                 modifier = Modifier.fillMaxSize()
             )
@@ -528,7 +516,7 @@ fun CustomBottomBar(navController: NavHostController) {
 
             Box(
                 modifier = Modifier
-                    .padding(bottom = 20.dp)
+                    .padding(bottom = 70.dp)
                     .align(Alignment.Center)
             ) {
                 IconButton(
@@ -598,7 +586,7 @@ fun CustomBottomBar(navController: NavHostController) {
 @Preview(showBackground = true)
 @Composable
 fun PrevHomeScreen() {
-    ZhMatualeTheme {
+    SprintTaskTheme {
         HomeScreen(navHostController = rememberNavController())
     }
 }
