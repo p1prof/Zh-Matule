@@ -468,7 +468,7 @@ fun CardItems2() {
             ) {
                 Image(
                     painter =
-                    if(cartstate % 2 ==0) painterResource(R.drawable.cart)
+                    if(cartstate % 2 ==0) painterResource(R.drawable.cart_ic)
                     else painterResource(R.drawable.plus),
                     contentDescription = "Plus Icon",
                     modifier = Modifier.fillMaxSize()
