@@ -1,5 +1,6 @@
 package com.example.zh_matuale.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,9 +9,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialogDefaults.shape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -21,14 +28,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -43,9 +55,16 @@ fun RecoverScreen(navController: NavHostController) {
     var isEmailValid by remember { mutableStateOf(true) }
     var isPasswordValid by remember { mutableStateOf(true) }
 
+    var dialog by remember { mutableStateOf(false) }
+
+    if ( dialog ) {
+        MinimalDialog { navController.navigate(NavRoute.OTPScreen.route) } }
+
 
     Box(
-        modifier = Modifier.fillMaxSize().background(Color(0xFFF7F7F9))
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFF7F7F9))
     ) {
         Column(
             modifier = Modifier
@@ -68,7 +87,9 @@ fun RecoverScreen(navController: NavHostController) {
             Text(
                 text = "Введите Свою Учетную Запись\nДля Сброса",
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding().fillMaxWidth(),
+                modifier = Modifier
+                    .padding()
+                    .fillMaxWidth(),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = FontFamily(Font(R.font.newpeninimmt)),
@@ -117,7 +138,8 @@ fun RecoverScreen(navController: NavHostController) {
                     Button(
                         onClick = {
                             if (isEmailValid && email.isNotEmpty() ) {
-                                navController.navigate(NavRoute.Splash.route)
+                                dialog = true
+                                //navController.navigate(NavRoute.Splash.route)
                             } else {
                                 isEmailValid = isValidEmail(email)
                             }
@@ -140,6 +162,59 @@ fun RecoverScreen(navController: NavHostController) {
     }
 }
 
+
+@Composable
+fun MinimalDialog(onDismissRequest: () -> Unit) {
+    Dialog(onDismissRequest = { onDismissRequest() }) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(16.dp),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+
+                Box(
+                    modifier = Modifier.background(Color(0xFF48B2E7), shape = CircleShape),
+                ) {
+                    Box(
+                        modifier = Modifier.size(35.dp)
+                    ) {
+                        Image(painter = painterResource(R.drawable.eml), contentDescription = "", modifier = Modifier.size(45.dp))
+                    }
+                }
+
+                Text(
+                    text = "Проверьте ваш Email",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.Center),
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 16.sp
+                )
+
+                Text(
+                    text = "Мы отправили код восстановления пароля на вашу электронную почту.",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.Center),
+                    textAlign = TextAlign.Center,
+                    fontSize = 14.sp,
+                    color = Color(0xff707B81)
+                )
+            }
+        }
+    }
+}
 
 @Composable
 @Preview(showBackground = true)

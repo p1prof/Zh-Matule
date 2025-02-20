@@ -6,7 +6,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.zh_matuale.screens.HomeScreen
 import com.example.zh_matuale.screens.LogScreen
+import com.example.zh_matuale.screens.OTPScreen
 import com.example.zh_matuale.screens.OnboardScreen
+import com.example.zh_matuale.screens.PolicyScreen
 import com.example.zh_matuale.screens.SplashScreen
 import com.example.zh_matuale.screens.PopularScreen
 import com.example.zh_matuale.screens.RecoverScreen
@@ -24,6 +26,8 @@ sealed class NavRoute (val route: String) {
     object Shopkart: NavRoute("shopkart_screen")
     object SigninScreen: NavRoute("signin_screen")
     object Recover: NavRoute("recover_screen")
+    object PolicyScreen: NavRoute("policy_screen")
+    object OTPScreen: NavRoute("policy_screen")
 }
 
 @Composable
@@ -39,5 +43,7 @@ fun AppNavHost() {
         composable(NavRoute.Shopkart.route){ ShopkartScreen(navController) }
         composable(NavRoute.SigninScreen.route){ SigninScreen(navController) }
         composable(NavRoute.Recover.route){ RecoverScreen(navController) }
+        composable(NavRoute.PolicyScreen.route){ PolicyScreen(navController) }
+        composable(NavRoute.OTPScreen.route){ OTPScreen(navController) }
     }
 }
