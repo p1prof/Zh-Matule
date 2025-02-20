@@ -4,11 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.zh_matuale.screens.FavoriteScreen
 import com.example.zh_matuale.screens.HomeScreen
 import com.example.zh_matuale.screens.LogScreen
 import com.example.zh_matuale.screens.OnboardScreen
 import com.example.zh_matuale.screens.SplashScreen
 import com.example.zh_matuale.screens.PopularScreen
+import com.example.zh_matuale.screens.ShopkartScreen
 
 
 sealed class NavRoute (val route: String) {
@@ -30,6 +32,8 @@ fun AppNavHost() {
         composable(NavRoute.Home.route){ HomeScreen(navController)}
         composable(NavRoute.Splash.route){ SplashScreen(navController) }
         composable(NavRoute.Onboard.route){ OnboardScreen(navController, onFinish = {navController.navigate(NavRoute.Home.route)}) }
-       composable(NavRoute.Popular.route){ PopularScreen(navController) }
+        composable(NavRoute.Popular.route){ PopularScreen(navController) }
+        composable(NavRoute.Shopkart.route){ ShopkartScreen(navController) }
+        composable(NavRoute.Favorite.route){ FavoriteScreen(navController) }
     }
 }
