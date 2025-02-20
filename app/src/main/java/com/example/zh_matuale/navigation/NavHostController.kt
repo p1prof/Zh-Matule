@@ -4,13 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.zh_matuale.screens.FavoriteScreen
 import com.example.zh_matuale.screens.HomeScreen
 import com.example.zh_matuale.screens.LogScreen
+import com.example.zh_matuale.screens.OTPScreen
 import com.example.zh_matuale.screens.OnboardScreen
+import com.example.zh_matuale.screens.PolicyScreen
 import com.example.zh_matuale.screens.SplashScreen
 import com.example.zh_matuale.screens.PopularScreen
+import com.example.zh_matuale.screens.RecoverScreen
 import com.example.zh_matuale.screens.ShopkartScreen
+import com.example.zh_matuale.screens.SigninScreen
 
 
 sealed class NavRoute (val route: String) {
@@ -20,7 +23,11 @@ sealed class NavRoute (val route: String) {
     object Onboard: NavRoute("onboard_screen")
     object Popular: NavRoute("popular_screen")
     object Favorite: NavRoute("favorite_screen")
-    object Shopkart: NavRoute("favorite_screen")
+    object Shopkart: NavRoute("shopkart_screen")
+    object SigninScreen: NavRoute("signin_screen")
+    object Recover: NavRoute("recover_screen")
+    object PolicyScreen: NavRoute("policy_screen")
+    object OTPScreen: NavRoute("policy_screen")
 }
 
 @Composable
@@ -34,6 +41,9 @@ fun AppNavHost() {
         composable(NavRoute.Onboard.route){ OnboardScreen(navController, onFinish = {navController.navigate(NavRoute.Home.route)}) }
         composable(NavRoute.Popular.route){ PopularScreen(navController) }
         composable(NavRoute.Shopkart.route){ ShopkartScreen(navController) }
-        composable(NavRoute.Favorite.route){ FavoriteScreen(navController) }
+        composable(NavRoute.SigninScreen.route){ SigninScreen(navController) }
+        composable(NavRoute.Recover.route){ RecoverScreen(navController) }
+        composable(NavRoute.PolicyScreen.route){ PolicyScreen(navController) }
+        composable(NavRoute.OTPScreen.route){ OTPScreen(navController) }
     }
 }

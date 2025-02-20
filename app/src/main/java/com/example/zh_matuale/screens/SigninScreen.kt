@@ -1,6 +1,7 @@
 package com.example.zh_matuale.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.foundation.background
@@ -8,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -32,8 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -51,8 +55,9 @@ import com.example.zhdapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LogScreen(navController: NavHostController) {
+fun SigninScreen(navController: NavHostController) {
     var email by remember { mutableStateOf("xyz@gmail.com") }
+    var name by remember { mutableStateOf("Andrew") }
     var password by remember { mutableStateOf("xyz123!!!") }
     var isEmailValid by remember { mutableStateOf(true) }
     var isPasswordValid by remember { mutableStateOf(true) }
@@ -68,7 +73,7 @@ fun LogScreen(navController: NavHostController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(vertical = 120.dp),
+                    .padding(vertical = 80.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
@@ -76,7 +81,7 @@ fun LogScreen(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp),
-                    text = "Привет!",
+                    text = "Регистрация",
                     textAlign = TextAlign.Center,
                     fontSize = 36.sp,
                     fontWeight = FontWeight.Medium,
@@ -86,7 +91,9 @@ fun LogScreen(navController: NavHostController) {
                 Text(
                     text = "Заполните Свои Данные Или\nПродолжите Через Социальные Медиа",
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.padding().fillMaxWidth(),
+                    modifier = Modifier
+                        .padding()
+                        .fillMaxWidth(),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = FontFamily(Font(R.font.newpeninimmt)),
@@ -97,6 +104,33 @@ fun LogScreen(navController: NavHostController) {
                     modifier = Modifier.padding(horizontal = 20.dp, vertical = 32.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
+                    Column {
+                        Text(
+                            text = "Имя",
+                            textAlign = TextAlign.Start,
+                            fontSize = 16.sp,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        OutlinedTextField(
+                            value = name,
+                            onValueChange = { name = it },
+                            shape = RoundedCornerShape(20.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp),
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = Color.LightGray,
+                                unfocusedContainerColor = Color.LightGray,
+                                focusedIndicatorColor = Color.LightGray,
+                                unfocusedIndicatorColor = Color.LightGray
+                            )
+
+                        )
+
+                    }
+
                     Column {
                         Text(
                             text = "Email",
@@ -147,18 +181,27 @@ fun LogScreen(navController: NavHostController) {
                         )
                     }
 
-                    Text(
-                        "Восстановить",
-                        modifier = Modifier.fillMaxWidth().clickable { navController.navigate(NavRoute.Recover.route) },
-                        textAlign = TextAlign.End,
-                        fontSize = 14.sp,
-                        color = Color.Gray
-                    )
+                    Row(
+
+                    ) {
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Image(painter = painterResource(R.drawable.shield), contentDescription = "")
+                        }
+
+                        Text(
+                            "Даю согласие на обработку\nперсональных данных",
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Start,
+                            fontSize = 14.sp,
+                            color = Color.Gray,
+                            textDecoration = null
+                        )
+                    }
 
                     Button(
                         onClick = {
-                            if (isEmailValid && isPasswordValid && email.isNotEmpty() && password.isNotEmpty()) {
-                                navController.navigate(NavRoute.Splash.route)
+                            if (isEmailValid && isPasswordValid && email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty()) {
+                                navController.navigate(NavRoute.Home.route)
                             } else {
                                 isEmailValid = isValidEmail(email)
                                 isPasswordValid = password.isNotEmpty()
@@ -174,16 +217,16 @@ fun LogScreen(navController: NavHostController) {
                             containerColor = Color(0xFF48B2E7)
                         )
                     ) {
-                        Text("Войти")
+                        Text("Зарегистрироваться")
                     }
                 }
             }
 
             Text(
-                text = "Вы впервые? Создать пользователя",
+                text = "Есть аккаунт? Войти",
                 modifier = Modifier
-                    .clickable { navController.navigate(NavRoute.SigninScreen.route) }
                     .align(Alignment.BottomCenter)
+                    .clickable { navController.navigate(NavRoute.Log.route) }
                     .padding(bottom = 12.dp),
                 fontSize = 14.sp
             )
@@ -191,57 +234,10 @@ fun LogScreen(navController: NavHostController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun PasswordTextField(password: String, onPasswordChange: (String) -> Unit) {
-    var isPasswordVisible by remember { mutableStateOf(false) }
-
-    Column(
-        modifier = Modifier.padding(vertical = 8.dp)
-    ) {
-        Text(
-            text = "Пароль",
-            textAlign = TextAlign.Start,
-            fontSize = 16.sp,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        OutlinedTextField(
-            value = password,
-            onValueChange = onPasswordChange,
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.LightGray,
-                unfocusedContainerColor = Color.LightGray,
-                focusedIndicatorColor = Color.LightGray,
-                unfocusedIndicatorColor = Color.LightGray
-            ),
-            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            trailingIcon = {
-                IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
-                    Icon(
-                        imageVector = if (isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
-                        contentDescription = if (isPasswordVisible) "Скрыть пароль" else "Показать пароль",
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
-            }
-        )
-    }
-}
-
-fun isValidEmail(email: String): Boolean {
-    val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
-    return email.matches(emailRegex.toRegex())
-}
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PrevLogScreen() {
+fun PrevSignScreen() {
     ZhMatualeTheme {
-        LogScreen(navController = rememberNavController())
+        SigninScreen(navController = rememberNavController())
     }
 }
