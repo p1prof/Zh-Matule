@@ -201,7 +201,7 @@ fun SigninScreen(navController: NavHostController) {
                     Button(
                         onClick = {
                             if (isEmailValid && isPasswordValid && email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty()) {
-                                navController.navigate(NavRoute.Log.route)
+                                navController.navigate(NavRoute.Home.route)
                             } else {
                                 isEmailValid = isValidEmail(email)
                                 isPasswordValid = password.isNotEmpty()
