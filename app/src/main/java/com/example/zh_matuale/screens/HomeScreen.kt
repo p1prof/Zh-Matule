@@ -562,7 +562,7 @@ fun CustomBottomBar(navController: NavHostController) {
 
                 Spacer(Modifier.width(16.dp))
 
-                IconButton(onClick = { } ) {
+                IconButton(onClick = { navController.navigate(NavRoute.Favorite.route) } ) {
                     Image(
                         painter = painterResource(R.drawable.fav),
                         contentDescription = "Favorites",

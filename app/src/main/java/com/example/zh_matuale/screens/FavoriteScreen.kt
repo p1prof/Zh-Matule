@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -41,74 +43,81 @@ import com.example.zh_matuale.ui.theme.ZhMatualeTheme
 import com.example.zhdapp.R
 
 
-data class Product(
+data class Product2(
     val id: Int
 )
 
 
 @Composable
-fun PopularScreen(navHostController: NavHostController) {
-
+fun FavoriteScreen(navHostController: NavHostController) {
     val products = List(50) { index ->
-        Product(id = index + 1)
+        Product2(id = index + 1)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF7F7F9)),
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.TopCenter
     ) {
-
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxSize()
+                .background(Color(0xFFF7F7F9))
         ) {
-            IconButton(
-                onClick = { navHostController.navigate(NavRoute.Home.route) }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Image(
-                    painter = painterResource(R.drawable.arrowback),
-                    contentDescription = "Heart Icon",
-                    modifier = Modifier.fillMaxSize()
+                IconButton(
+                    onClick = { navHostController.navigate(NavRoute.Home.route) }
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.arrowback),
+                        contentDescription = "Back Icon",
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
+                Text(
+                    text = "Избранное",
+                    modifier = Modifier.padding(vertical = 12.dp),
+                    textAlign = TextAlign.Center,
+                    fontSize = 20.sp
                 )
+                IconButton(
+                    onClick = { navHostController.navigate(NavRoute.Home.route) }
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.hearted),
+                        contentDescription = "Heart Icon",
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
             }
-
-            Text(
-                text = "Популярное",
-                modifier = Modifier.padding(vertical = 12.dp),
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp
-            )
-
-            IconButton(
-                onClick = {  }
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
-                Image(
-                    painter = painterResource(R.drawable.heart_ic),
-                    contentDescription = "Heart Icon",
-                    modifier = Modifier.fillMaxSize()
-                )
+                items(products) { product ->
+                    CardItem2(product)
+                }
             }
         }
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+
+        Box(
+            modifier = Modifier.align(Alignment.BottomCenter)
         ) {
-            items(products) { product ->
-                CardItem(product)
-            }
+            CustomBottomBar2()
         }
     }
 }
 
 
 @Composable
-fun CardItem(product: Product) {
+fun CardItem2(product: Product2) {
     var isFavorite by remember { mutableStateOf(false) }
     var inCart by remember { mutableStateOf(false) }
 
@@ -133,8 +142,8 @@ fun CardItem(product: Product) {
                     IconButton(onClick = { isFavorite = !isFavorite }) {
                         Image(
                             painter = painterResource(
-                                if (isFavorite) R.drawable.hearted
-                                else R.drawable.hearted
+                                if (!isFavorite) R.drawable.hearted
+                                else R.drawable.heart_ic
                             ),
                             contentDescription = "Favorite Icon",
                             modifier = Modifier.size(36.dp)
@@ -197,12 +206,90 @@ fun CardItem(product: Product) {
 }
 
 
-
-
-@Preview(showBackground = true)
 @Composable
-fun PrevPopularScreen() {
-    ZhMatualeTheme {
-        PopularScreen(navHostController = rememberNavController())
+fun CustomBottomBar2(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(80.dp)
+            .background(Color(0xFFF7F7F9)),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(R.drawable.bottom_bar),
+            contentDescription = "Bottom Bar Background",
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.BottomCenter)
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .align(Alignment.BottomCenter),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = { }) {
+                Image(
+                    painter = painterResource(R.drawable.home1),
+                    contentDescription = "Home",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            IconButton(onClick = {}) {
+                Image(
+                    painter = painterResource(R.drawable.blueheart),
+                    contentDescription = "Favorites",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            IconButton(onClick = {}) {
+                Image(
+                    painter = painterResource(R.drawable.notification),
+                    contentDescription = "Notifications",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            IconButton(onClick = {}) {
+                Image(
+                    painter = painterResource(R.drawable.profile),
+                    contentDescription = "Profile",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+        }
+
+
+        Box(
+            modifier = Modifier
+                .size(64.dp)
+                .align(Alignment.TopCenter)
+                .offset(y = (-32).dp)
+                .background(Color.White, shape = RoundedCornerShape(50))
+        ) {
+            IconButton(
+                onClick = {},
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.main_ic),
+                    contentDescription = "Main Button",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
     }
 }
+
+
+@Preview
+@Composable
+fun PrevFavoriteScreen() {
+    ZhMatualeTheme {
+        FavoriteScreen(navHostController = rememberNavController())
+    }
+}
+//ddd
