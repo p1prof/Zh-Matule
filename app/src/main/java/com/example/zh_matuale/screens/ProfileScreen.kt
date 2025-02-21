@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -29,148 +28,134 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.zh_matuale.navigation.NavRoute
 import com.example.zh_matuale.ui.theme.ZhMatualeTheme
 import com.example.zhdapp.R
 
+
+var nameGl = "Emmanuel"
+var sernameGl = ""
+
+
 @Composable
 fun ProfileScreen(navController: NavHostController) {
-
-    val edit by remember { mutableStateOf(false) }
-
-
-    if (!edit) { ProfScreenNoEdit() }
-    else { ProfEdit() }
-
-
-    CustomBottomBar3(navController = rememberNavController())
-
-}
-
-
-@Composable
-fun ProfScreenNoEdit() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF7F7F9))
-    ) {
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 16.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ){
-                IconButton(onClick = { /*TODO*/ }) {
-                    Image(painter = painterResource(R.drawable.hamburger), contentDescription = "")
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                Column(verticalArrangement = Arrangement.Center) {
-                    Text(text = "Профиль", fontSize = 19.sp, modifier = Modifier)
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                IconButton(onClick = { /*TODO*/ }) {
-                    Image(painter = painterResource(R.drawable.redact), contentDescription = "")
-                }
-            }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 48.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(painter = painterResource(R.drawable.prfp), contentDescription = "", modifier = Modifier.size(110.dp))
-                Text(
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    text = "Emmanuel Oyiboke",
-                    fontSize = 22.sp
-                )
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Image(painter = painterResource(R.drawable.barcode), contentDescription = "")
-            }
-
-            Column(Modifier.padding(vertical = 8.dp)){
-                Text(text = "Имя")
-                Spacer(modifier = Modifier.height(8.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
-                        .padding(12.dp),
-                ) {
-                    Text(text = "Emmanuel")
-                }
-            }
-
-            Column(Modifier.padding(vertical = 8.dp)){
-                Text(text = "Фамилия")
-                Spacer(modifier = Modifier.height(8.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
-                        .padding(12.dp),
-                ) {
-                    Text(text = "Oyiboke")
-                }
-            }
-
-            Column(Modifier.padding(vertical = 8.dp)){
-                Text(text = "Адрес")
-                Spacer(modifier = Modifier.height(8.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
-                        .padding(12.dp),
-                ) {
-                    Text(text = "Nigeria")
-                }
-            }
-
-            Column(Modifier.padding(vertical = 8.dp)){
-                Text(text = "Телефон")
-                Spacer(modifier = Modifier.height(8.dp))
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
-                        .padding(12.dp),
-                ) {
-                    Text(text = "+7 811-732-5298")
-                }
-            }
-        }
-
-    }
-}
-
-
-@Composable
-fun ProfEdit() {
     var name by remember { mutableStateOf("Emmanuel") }
     var  sername by remember { mutableStateOf("Oyiboke") }
     var adress by remember { mutableStateOf("Nigeria") }
     var number by remember { mutableStateOf("+7 811-732-5298") }
     var isEmailValid by remember { mutableStateOf(true) }
 
+    var edit by remember { mutableStateOf(false)}
+
+    if (!edit) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFFF7F7F9))
+        ) {
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ){
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Image(painter = painterResource(R.drawable.hamburger), contentDescription = "")
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(text = "Профиль", fontSize = 19.sp, modifier = Modifier.align(Alignment.CenterVertically))
+                    Spacer(modifier = Modifier.weight(1f))
+                    IconButton(onClick = { edit = true }) {
+                        Image(painter = painterResource(R.drawable.redact), contentDescription = "")
+                    }
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 48.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(painter = painterResource(R.drawable.prfp), contentDescription = "", modifier = Modifier.size(110.dp))
+                    Text(
+                        modifier = Modifier.padding(vertical = 8.dp),
+                        text = "Emmanuel Oyiboke",
+                        fontSize = 22.sp
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Image(painter = painterResource(R.drawable.barcode), contentDescription = "")
+                }
+
+                Column(Modifier.padding(vertical = 8.dp)){
+                    Text(text = "Имя")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
+                            .padding(12.dp),
+                    ) {
+                        Text(text = "Emmanuel")
+                    }
+                }
+
+                Column(Modifier.padding(vertical = 8.dp)){
+                    Text(text = "Фамилия")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
+                            .padding(12.dp),
+                    ) {
+                        Text(text = "Oyiboke")
+                    }
+                }
+
+                Column(Modifier.padding(vertical = 8.dp)){
+                    Text(text = "Адрес")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
+                            .padding(12.dp),
+                    ) {
+                        Text(text = "Nigeria")
+                    }
+                }
+
+                Column(Modifier.padding(vertical = 8.dp)){
+                    Text(text = "Телефон")
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.LightGray, shape = RoundedCornerShape(15.dp))
+                            .padding(12.dp),
+                    ) {
+                        Text(text = "+7 811-732-5298")
+                    }
+                }
+            }
+
+        }
+    }
+    else {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -183,7 +168,10 @@ fun ProfEdit() {
                     .padding(horizontal = 16.dp, vertical = 16.dp)
             ) {
                 Button(
-                    onClick = { TODO() },
+                    onClick = { if (name.isNotEmpty() && sername.isNotEmpty() && adress.isNotEmpty() && number.isNotEmpty()){
+                        edit = false }
+                              else {  }
+                              },
                     modifier = Modifier
                         .fillMaxWidth(0.7f)
                         .padding(vertical = 16.dp)
@@ -276,7 +264,7 @@ fun ProfEdit() {
                             unfocusedIndicatorColor = Color.LightGray
                         ),
 
-                    )
+                        )
                     if (sername.isEmpty()) {
                         Text(
                             text = "поле не может быть пустым",
@@ -311,7 +299,7 @@ fun ProfEdit() {
                             unfocusedIndicatorColor = Color.LightGray
                         ),
 
-                    )
+                        )
                     if (adress.isEmpty()) {
                         Text(
                             text = "поле не может быть пустым",
@@ -346,7 +334,7 @@ fun ProfEdit() {
                             unfocusedIndicatorColor = Color.LightGray
                         ),
 
-                    )
+                        )
                     if (number.isEmpty()) {
                         Text(
                             text = "поле не может быть пустым",
@@ -363,6 +351,28 @@ fun ProfEdit() {
 
 
 
+
+
+    CustomBottomBar3(navController = rememberNavController())
+
+}
+
+
+@Composable
+fun ProfScreenNoEdit() {
+
+}
+
+
+@Composable
+fun ProfEdit() {
+
+
+
+    }
+
+
+
 @Composable
 fun CustomBottomBar3(navController: NavHostController) {
     Box(
@@ -374,8 +384,7 @@ fun CustomBottomBar3(navController: NavHostController) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp)
-                .background(Color(0xFFF7F7F9)),
+                .height(150.dp),
             contentAlignment = Alignment.Center
         ) {
             Image(
@@ -431,14 +440,14 @@ fun CustomBottomBar3(navController: NavHostController) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                IconButton(onClick = {}) {
+                IconButton(onClick = { navController.navigate(NavRoute.NotionScreen.route) }) {
                     Image(
                         painter = painterResource(R.drawable.notification),
                         contentDescription = "Notifications",
                         modifier = Modifier.size(24.dp)
                     )
                 }
-                IconButton(onClick = {}) {
+                IconButton(onClick = {  }) {
                     Image(
                         painter = painterResource(R.drawable.pfp),
                         contentDescription = "Profile",
