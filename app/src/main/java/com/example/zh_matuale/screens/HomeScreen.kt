@@ -515,7 +515,7 @@ fun CustomBottomBar(navController: NavHostController) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp)
+                .height(200.dp)
                 .background(Color(0xFFF7F7F9)),
             contentAlignment = Alignment.Center
         ) {

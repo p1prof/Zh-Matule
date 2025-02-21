@@ -447,7 +447,7 @@ fun CustomBottomBar3(navController: NavHostController) {
                         modifier = Modifier.size(24.dp)
                     )
                 }
-                IconButton(onClick = {  }) {
+                IconButton(onClick = { navController.navigate(NavRoute.ProfileScreen.route) }) {
                     Image(
                         painter = painterResource(R.drawable.pfp),
                         contentDescription = "Profile",
