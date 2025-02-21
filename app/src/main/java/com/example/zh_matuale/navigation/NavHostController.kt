@@ -11,6 +11,7 @@ import com.example.zh_matuale.screens.OnboardScreen
 import com.example.zh_matuale.screens.PolicyScreen
 import com.example.zh_matuale.screens.SplashScreen
 import com.example.zh_matuale.screens.PopularScreen
+import com.example.zh_matuale.screens.ProfileScreen
 import com.example.zh_matuale.screens.RecoverScreen
 import com.example.zh_matuale.screens.ShopkartScreen
 import com.example.zh_matuale.screens.SigninScreen
@@ -28,6 +29,7 @@ sealed class NavRoute (val route: String) {
     object Recover: NavRoute("recover_screen")
     object PolicyScreen: NavRoute("policy_screen")
     object OTPScreen: NavRoute("policy_screen")
+    object ProfileScreen: NavRoute("profile_screen")
 }
 
 @Composable
@@ -45,5 +47,6 @@ fun AppNavHost() {
         composable(NavRoute.Recover.route){ RecoverScreen(navController) }
         composable(NavRoute.PolicyScreen.route){ PolicyScreen(navController) }
         composable(NavRoute.OTPScreen.route){ OTPScreen(navController) }
+        composable(NavRoute.ProfileScreen.route){ ProfileScreen(navController) }
     }
 }
