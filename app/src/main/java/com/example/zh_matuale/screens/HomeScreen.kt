@@ -562,7 +562,7 @@ fun CustomBottomBar(navController: NavHostController) {
 
                 Spacer(Modifier.width(16.dp))
 
-                IconButton(onClick = { navController.navigate(NavRoute.Shopkart.route) } ) {
+                IconButton(onClick = {  } ) {
                     Image(
                         painter = painterResource(R.drawable.fav),
                         contentDescription = "Favorites",
@@ -572,14 +572,14 @@ fun CustomBottomBar(navController: NavHostController) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                IconButton(onClick = {}) {
+                IconButton(onClick = {navController.navigate(NavRoute.NotionScreen.route)}) {
                     Image(
                         painter = painterResource(R.drawable.notification),
                         contentDescription = "Notifications",
                         modifier = Modifier.size(24.dp)
                     )
                 }
-                IconButton(onClick = {}) {
+                IconButton(onClick = {navController.navigate(NavRoute.ProfileScreen.route)}) {
                     Image(
                         painter = painterResource(R.drawable.profile),
                         contentDescription = "Profile",
