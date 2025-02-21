@@ -14,8 +14,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -213,23 +216,35 @@ fun ProfileScreen(navController: NavHostController) {
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = {
-                            name = it
-                        },
-                        shape = RoundedCornerShape(20.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.LightGray,
-                            unfocusedContainerColor = Color.LightGray,
-                            focusedIndicatorColor = Color.LightGray,
-                            unfocusedIndicatorColor = Color.LightGray
-                        ),
-                        isError = !isEmailValid
-                    )
+                    Box(
+                        Modifier.fillMaxWidth()
+                    ) {
+                        Row {
+                            OutlinedTextField(
+                                value = name,
+                                onValueChange = {
+                                    name = it
+                                },
+                                shape = RoundedCornerShape(20.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp),
+                                colors = TextFieldDefaults.colors(
+                                    focusedContainerColor = Color.LightGray,
+                                    unfocusedContainerColor = Color.LightGray,
+                                    focusedIndicatorColor = Color.LightGray,
+                                    unfocusedIndicatorColor = Color.LightGray
+                                ),
+                                isError = !isEmailValid
+                            )
+
+                            if (name.isNotEmpty()) {
+                                Icon(imageVector = Icons.Filled.Check, contentDescription = "")
+                            }
+                        }
+                    }
+
+
                     if (name.isEmpty()) {
                         Text(
                             text = "поле не может быть пустым",
